@@ -1,4 +1,4 @@
-![Screenshot 2024-05-03 204532](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/19c19f25-64dd-419d-bdd2-7f967ee57b13)# Laporan Resmi Jarkom Modul 2
+![Screenshot 2024-05-03 204824](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/51fa41f9-351d-49a3-92e9-06e2b3e4a1a4)![Screenshot 2024-05-03 204814](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/f28683e9-4167-472a-a8b7-f8bfd459450e)![Screenshot 2024-05-03 204532](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/19c19f25-64dd-419d-bdd2-7f967ee57b13)# Laporan Resmi Jarkom Modul 2
 ## Kelompok IT01
 | NRP | Nama |
 | ------ | ------ |
@@ -132,5 +132,80 @@ service bind9 restart
 
 - ping www.loot.it01.com
 ![Screenshot 2024-05-03 204616](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/8ed2c387-5c7e-42bd-8033-d05e9234246f)
+
+# Nomor 5
+Pastikan domain-domain tersebut dapat diakses oleh seluruh komputer (client) yang berada di Erangel
+
+- Quarry
+![Screenshot 2024-05-03 204824](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/1e27986a-0628-4d65-8504-9a1590cae0cc)
+
+- Shelter
+![Screenshot 2024-05-03 204838](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/bfd9115f-9409-44ea-a584-0aee7c6a1f58)
+
+
+- Georgopol
+![Screenshot 2024-05-03 204814](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/bd16f729-66f2-42b7-b75b-daeee5cce565)
+
+- Gatka
+![Screenshot 2024-05-03 204631](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/a4c913bb-56fd-4e7c-9bf8-5cc0cc4cfe29)
+
+- Severny
+![Screenshot 2024-05-03 203817](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/de034e52-959f-479e-83b7-862b8350607f)
+
+- Stalber
+![Screenshot 2024-05-03 204616](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/cfa3686a-0f25-4ef0-9fb6-86bdb7a2e67d)
+
+- Lipovka
+![Screenshot 2024-05-03 204956](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/758c4b37-063c-4eca-8d15-989d96e23b71)
+
+- Mylta
+![Screenshot 2024-05-03 205122](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/290f436b-6640-4c28-8979-0e2d27f937c4)
+
+# Soal 6
+Beberapa daerah memiliki keterbatasan yang menyebabkan hanya dapat mengakses domain secara langsung melalui alamat IP domain tersebut. Karena daerah tersebut tidak diketahui secara spesifik, pastikan semua komputer (client) dapat mengakses domain redzone.xxxx.com melalui alamat IP Severny (Notes : menggunakan pointer record)
+
+- Edit file /etc/bind/named.conf.local pada node Pochinki
+```
+nano /etc/bind/named.conf.local
+```
+Untuk reverse DNS, gunakan 3 digit pertama dari IP Severny yang dibalik, karena IP Severny kami adalah `10.64.4.2`, maka reverse-nya adalah `4.64.10`
+```
+zone "4.64.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/jarkom/4.64.10.in-addr.arpa";
+};
+```
+
+- Buat folder baru di /etc/bind bernama reverse
+```
+mkdir /etc/bind/reverse
+```
+
+- Copykan file db.local pada path /etc/bind ke dalam folder reverse yang baru saja dibuat dan ubah namanya menjadi 4.64.10.in-addr.arpa
+```
+cp /etc/bind/db.local /etc/bind/reverse/4.64.10.in-addr.arpa
+```
+
+- Edit file 4.64.10.in-addr.arpa menjadi seperti gambar di bawah ini
+```
+nano /etc/bind/reverse/4.64.10.in-addr.arpa
+```
+![Screenshot 2024-05-03 221751](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/a4b8c880-f333-42ad-a0c1-a6605daf9dc2)
+
+- Restart bind9
+```
+service bind9 restart
+```
+
+## Testing
+- Kami menggunakan node Gatka untuk Testing, pertama jalankan terlebih dahulu command berikut, pastikan untuk mengganti nameserver agar tersambung ke Erangel
+```
+apt-get update
+apt-get install dnsutils
+```
+- Kembalikan nameserver ke IP Pochinki, kemudian jalankan command berikut
+```
+host -t PTR 10.64.4.2
+```
 
 
