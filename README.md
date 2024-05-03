@@ -291,9 +291,16 @@ nano /etc/bind/airdrop/airdrop.it01.com
 - Restart Bind9 `service bind9 restart`
 
 ## Testing
-- Ping` medkit.airdrop.it05.com` dari server Gatka
+- Ping `medkit.airdrop.it01.com` dari server Gatka
 ![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/a200c64d-8a19-4ae0-ac7e-ae7e32eeed7b)
 
+# Soal 9
+Terkadang red zone yang pada umumnya di bombardir artileri akan dijatuhi bom oleh pesawat tempur. Untuk melindungi warga, kita diperlukan untuk membuat sistem peringatan air raid dan memasukkannya ke domain siren.redzone.xxxx.com dalam folder siren dan pastikan dapat diakses secara mudah dengan menambahkan alias www.siren.redzone.xxxx.com dan mendelegasikan subdomain tersebut ke Georgopol dengan alamat IP menuju radar di Severny
+
+Edit file `/etc/bind/named.conf.local`
+```
+nano /etc/bind/named.conf.local
+```
 
 
 
