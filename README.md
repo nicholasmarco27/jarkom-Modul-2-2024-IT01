@@ -209,6 +209,8 @@ apt-get install dnsutils
 echo nameserver 10.64.1.2 > /etc/resolv.conf
 host -t PTR 10.64.4.2
 ```
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/3eb5101b-8c7e-416f-9043-dc9ea0e40240)
+
 
 # Soal 7
 Akhir-akhir ini seringkali terjadi serangan siber ke DNS Server Utama, sebagai tindakan antisipasi kamu diperintahkan untuk membuat DNS Slave di Georgopol untuk semua domain yang sudah dibuat sebelumnya
@@ -248,6 +250,51 @@ service bind9 restart
 ```
 
 - Pada node Georgopol, lakukan `apt-get update` dan menginstall bind9 dengan `apt-get install bind9 -y`
-- Lakukan konfigurasi pada file `/etc/bind/named.conf.local` 
+- Lakukan konfigurasi pada file `/etc/bind/named.conf.local`
+```
+zone "airdrop.it01.com" {
+    type slave;
+    masters { 10.64.1.2; };
+    file "/var/lib/bind/airdrop.it01.com";
+};
+
+zone "redzone.it01.com" {
+    type slave;
+    masters { 10.64.1.2; };
+    file "/var/lib/bind/redzone.it01.com";
+};
+
+zone "loot.it01.com" {
+    type slave;
+    masters { 10.64.1.2; };
+    file "/var/lib/bind/loot.it01.com";
+};
+```
+
+- Restart Bind9 `service bind9 restart`
+
+## Testing
+- Stop service Bind9 pada server Pochinki dengan `service bind9 stop`
+- Melakukan ping dengan server Gatka, pastikan bahwa nameserver di Gatka di set menuju IP Pochinki dan Gatka
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/7b17d47d-133c-4673-a7c4-ed38672fe93e)
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/5fca4a4a-a1c2-4271-8c4e-01a10121014a)
+
+# Soal 8
+Kamu juga diperintahkan untuk membuat subdomain khusus melacak airdrop berisi peralatan medis dengan subdomain medkit.airdrop.xxxx.com yang mengarah ke Lipovka
+
+- Edit file `/etc/bind/airdrop/airdrop.it01.com` seperti pada gambar dibawah ini
+```
+nano /etc/bind/airdrop/airdrop.it01.com
+```
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/f1d4f2ff-b415-40a4-ac74-b8d8972032e8)
+
+- Restart Bind9 `service bind9 restart`
+
+## Testing
+- Ping` medkit.airdrop.it05.com` dari server Gatka
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/a200c64d-8a19-4ae0-ac7e-ae7e32eeed7b)
+
+
+
 
 
