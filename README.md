@@ -172,7 +172,7 @@ Untuk reverse DNS, gunakan 3 digit pertama dari IP Severny yang dibalik, karena 
 ```
 zone "4.64.10.in-addr.arpa" {
     type master;
-    file "/etc/bind/jarkom/4.64.10.in-addr.arpa";
+    file "/etc/bind/reverse/4.64.10.in-addr.arpa";
 };
 ```
 
