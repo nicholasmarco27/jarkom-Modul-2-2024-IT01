@@ -1,4 +1,4 @@
-![Screenshot 2024-05-03 204824](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/51fa41f9-351d-49a3-92e9-06e2b3e4a1a4)![Screenshot 2024-05-03 204814](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/f28683e9-4167-472a-a8b7-f8bfd459450e)![Screenshot 2024-05-03 204532](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/19c19f25-64dd-419d-bdd2-7f967ee57b13)# Laporan Resmi Jarkom Modul 2
+# Laporan Resmi Jarkom Modul 2
 ## Kelompok IT01
 | NRP | Nama |
 | ------ | ------ |
@@ -155,10 +155,10 @@ Pastikan domain-domain tersebut dapat diakses oleh seluruh komputer (client) yan
 - Stalber
 ![Screenshot 2024-05-03 204616](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/cfa3686a-0f25-4ef0-9fb6-86bdb7a2e67d)
 
-- Lipovka
+- Lipovka</br>
 ![Screenshot 2024-05-03 204956](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/758c4b37-063c-4eca-8d15-989d96e23b71)
 
-- Mylta
+- Mylta</br>
 ![Screenshot 2024-05-03 205122](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/290f436b-6640-4c28-8979-0e2d27f937c4)
 
 # Soal 6
