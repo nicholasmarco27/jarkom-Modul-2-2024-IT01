@@ -200,11 +200,13 @@ service bind9 restart
 ## Testing
 - Kami menggunakan node Gatka untuk Testing, pertama jalankan terlebih dahulu command berikut, pastikan untuk mengganti nameserver agar tersambung ke Erangel
 ```
+echo nameserver 192.168.122.1 > /etc/resolv.conf
 apt-get update
 apt-get install dnsutils
 ```
 - Kembalikan nameserver ke IP Pochinki, kemudian jalankan command berikut
 ```
+echo nameserver 10.64.1.2 > /etc/resolv.conf
 host -t PTR 10.64.4.2
 ```
 
