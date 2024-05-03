@@ -210,4 +210,44 @@ echo nameserver 10.64.1.2 > /etc/resolv.conf
 host -t PTR 10.64.4.2
 ```
 
+# Soal 7
+Akhir-akhir ini seringkali terjadi serangan siber ke DNS Server Utama, sebagai tindakan antisipasi kamu diperintahkan untuk membuat DNS Slave di Georgopol untuk semua domain yang sudah dibuat sebelumnya
+
+- Lakukan konfigurasi pada file /etc/bind/named.conf.local sebagai berikut untuk melakukan konfigurasi DNS Slave yang mengarah ke Georgopol:
+```
+zone "airdrop.it01.com" {
+    type master;
+    also-notify { 10.64.3.2; };
+    allow-transfer { 10.64.3.2; };
+    file "/etc/bind/airdrop/airdrop.it01.com";
+};
+
+zone "redzone.it01.com" {
+    type master;
+    also-notify { 10.64.3.2; };
+    allow-transfer { 10.64.3.2; };
+    file "/etc/bind/redzone/redzone.it01.com";
+};
+
+zone "loot.it01.com" {
+    type master;
+    also-notify { 10.64.3.2; };
+    allow-transfer { 10.64.3.2; };
+    file "/etc/bind/loot/loot.it01.com";
+};
+
+zone "4.64.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/reverse/4.64.10.in-addr.arpa";
+};
+```
+
+- Restart Bind9
+```
+service bind9 restart
+```
+
+- Pada node Georgopol, lakukan `apt-get update` dan menginstall bind9 dengan `apt-get install bind9 -y`
+- Lakukan konfigurasi pada file `/etc/bind/named.conf.local` 
+
 
