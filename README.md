@@ -374,3 +374,11 @@ www     IN      CNAME   siren.redzone.it01.com.
 # Soal 10
 Markas juga meminta catatan kapan saja pesawat tempur tersebut menjatuhkan bom, maka buatlah subdomain baru di subdomain siren yaitu log.siren.redzone.xxxx.com serta aliasnya www.log.siren.redzone.xxxx.com yang juga mengarah ke Severny
 
+- Pada Server Georgopol buka /etc/bind/siren/siren.redzone.it01.com, kemudian edit konfigurasi seperti gambar dibawah
+```
+nano /etc/bind/siren/siren.redzone.it01.com
+```
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/daf4c885-800d-4859-aa8f-30563005be81)
+
+- Restart Bind9 `service bind9 restart`
+
