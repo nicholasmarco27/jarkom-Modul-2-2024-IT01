@@ -364,6 +364,7 @@ www     IN      CNAME   siren.redzone.it01.com.
 - Restart Bind9 `service bind9 restart`
 
 ## Testing
+- Sebelum Testing, pastikan nameserver di set ke arah Georgopol
 - Ping www.siren.redzone.it01.com dari server Gatka
 ![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/d4a0f766-0cd5-453a-b5b8-0b7438c5a7f6)
 - Ping dari server Quarry
@@ -381,4 +382,12 @@ nano /etc/bind/siren/siren.redzone.it01.com
 ![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/daf4c885-800d-4859-aa8f-30563005be81)
 
 - Restart Bind9 `service bind9 restart`
+
+## Testing
+- Sebelum Testing, pastikan nameserver di set ke arah Georgopol
+- ping log.siren.redzone.it01.com dari server Gatka
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/3864edb6-0de1-455a-8b88-e2baab5b5db8)
+- ping www.log.siren.redzone.it01.com dari server Quarry
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/350867ec-569d-43bd-9998-db6da7e4989b)
+
 
