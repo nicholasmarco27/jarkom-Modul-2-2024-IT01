@@ -297,11 +297,80 @@ nano /etc/bind/airdrop/airdrop.it01.com
 # Soal 9
 Terkadang red zone yang pada umumnya di bombardir artileri akan dijatuhi bom oleh pesawat tempur. Untuk melindungi warga, kita diperlukan untuk membuat sistem peringatan air raid dan memasukkannya ke domain siren.redzone.xxxx.com dalam folder siren dan pastikan dapat diakses secara mudah dengan menambahkan alias www.siren.redzone.xxxx.com dan mendelegasikan subdomain tersebut ke Georgopol dengan alamat IP menuju radar di Severny
 
-Edit file `/etc/bind/named.conf.local`
+- Pada Pochinki, buat folder baru siren
 ```
-nano /etc/bind/named.conf.local
+mkdir /etc/bind/siren
 ```
 
+- Copy file dari folder redzone ke folder siren
+```
+cp /etc/bind/redzone/redzone.it01.com /etc/bind/siren/siren.redzone.it01.com
+```
+
+- Edit file sebagai berikut
+```
+nano /etc/bind/siren/siren.redzone.it01.com
+```
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/cbbc09e1-108d-4cde-90bd-1ffb58ab5d4d)
 
 
+- Edit file `/etc/bind/named.conf.options` dan tambahkan line berikut
+```
+allow-query{any;};
+```
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/50014127-f0a2-4731-8b3d-d9fa3e1e81ed)
+
+- Restart bind9 `service bind9 restart`
+- Pada Georgopol, edit file `/etc/bind/named.conf.options`, kemudian tambahkan line ini
+```
+allow-query{any;};
+```
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/3c8f7676-1ee1-43a8-84e2-cb7044ae237d)
+- Edit file `/etc/bind/named.conf.local` kemudian tambahkan konfigurasi dibawah ini
+```
+zone "siren.redzone.it01.com" {
+    type master;
+    file "/etc/bind/siren/siren.redzone.it01.com";
+};
+```
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/15a451b1-3276-4476-aa74-f81de292cb6f)
+- Buat folder siren
+```
+mkdir /etc/bind/siren
+```
+- Copy file db.local ke `/etc/bind/siren/siren.redzone.it01.com`
+```
+cp /etc/bind/db.local /etc/bind/siren/siren.redzone.it01.com
+```
+- Edit file `/etc/bind/siren/siren.redzone.it01.com`
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     siren.redzone.it01.com. root.siren.redzone.it01.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      siren.redzone.it01.com.
+@       IN      A       10.64.3.2 ; IP Georgopol
+www     IN      CNAME   siren.redzone.it01.com.
+@       IN      AAAA    ::1
+```
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/c6dcbe09-c7b6-4504-b5ee-c9682546036c)
+- Restart Bind9 `service bind9 restart`
+
+## Testing
+- Ping www.siren.redzone.it01.com dari server Gatka
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/d4a0f766-0cd5-453a-b5b8-0b7438c5a7f6)
+- Ping dari server Quarry
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/40f64f48-4b5c-4725-b629-ce6a12c3b7f6)
+- Ping dari server Shelter
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/c4a88b11-93c9-40f0-80e8-16aeac7fdef7)
+
+# Soal 10
+Markas juga meminta catatan kapan saja pesawat tempur tersebut menjatuhkan bom, maka buatlah subdomain baru di subdomain siren yaitu log.siren.redzone.xxxx.com serta aliasnya www.log.siren.redzone.xxxx.com yang juga mengarah ke Severny
 
