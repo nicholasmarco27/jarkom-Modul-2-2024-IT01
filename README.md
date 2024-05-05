@@ -12,12 +12,13 @@ Untuk membantu pertempuran di Erangel, kamu ditugaskan untuk membuat jaringan ko
 - Markas pusat juga meminta dibuatkan tiga Web Server yaitu Severny, Stalber, dan Lipovka. Sedangkan Mylta akan bertindak sebagai Load Balancer untuk server-server tersebut
 
 ## Setup
+### Server Erangel
 - Jalankan command berikut pada terminal Erangel agar node dapat terhubung ke internet.
 ```
 # Masquerade
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 10.64.0.0/16
 ```
-
+### Server Pochinki
 - Ubah nameserver menggunakan nameserver IP Erangel
 ```
 echo nameserver 192.168.122.1 > /etc/resolv.conf
@@ -29,10 +30,18 @@ cat /etc/resolv.conf
 apt-get update
 apt-get install bind9 -y
 ```
+### Server Georgopol
+```
+echo nameserver 192.168.122.1 > /etc/resolv.conf
+apt-get update
+apt-get install bind9 -y
+echo nameserver 10.64.1.2 > /etc/resolv.conf
+```
 
 # Soal 2
 Karena para pasukan membutuhkan koordinasi untuk mengambil airdrop, maka buatlah sebuah domain yang mengarah ke Stalber dengan alamat airdrop.xxxx.com dengan alias www.airdrop.xxxx.com dimana xxxx merupakan kode kelompok. Contoh : airdrop.it01.com
 
+### Server Pochinki
 - Edit file `/etc/bind/named.conf.local`
 ```
 nano /etc/bind/named.conf.local
@@ -69,6 +78,7 @@ airdrop.it01.com dari node Severny
 # Soal 3
 Para pasukan juga perlu mengetahui mana titik yang sedang di bombardir artileri, sehingga dibutuhkan domain lain yaitu redzone.xxxx.com dengan alias www.redzone.xxxx.com yang mengarah ke Severny
 
+### Server Pochinki
 - Edit file `/etc/bind/named.conf.local`
 ```
 nano /etc/bind/named.conf.local
@@ -102,6 +112,7 @@ service bind9 restart
 # Soal 4
 Markas pusat meminta dibuatnya domain khusus untuk menaruh informasi persenjataan dan suplai yang tersebar. Informasi persenjataan dan suplai tersebut mengarah ke Mylta dan domain yang ingin digunakan adalah loot.xxxx.com dengan alias www.loot.xxxx.com
 
+### Server Pochinki
 - Edit file `/etc/bind/named.conf.local`
 ```
 nano /etc/bind/named.conf.local
@@ -136,6 +147,14 @@ service bind9 restart
 # Nomor 5
 Pastikan domain-domain tersebut dapat diakses oleh seluruh komputer (client) yang berada di Erangel
 
+- Untuk testing, kita dapat melakukan ping pada domain yang telah dibuat. Contoh ping:
+```
+ping airdrop.it01.com -c 5
+ping redzone.it01.com -c 5
+ping www.loot.it01.com -c 5
+```
+
+
 - Quarry
 ![Screenshot 2024-05-03 204824](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/1e27986a-0628-4d65-8504-9a1590cae0cc)
 
@@ -164,6 +183,7 @@ Pastikan domain-domain tersebut dapat diakses oleh seluruh komputer (client) yan
 # Soal 6
 Beberapa daerah memiliki keterbatasan yang menyebabkan hanya dapat mengakses domain secara langsung melalui alamat IP domain tersebut. Karena daerah tersebut tidak diketahui secara spesifik, pastikan semua komputer (client) dapat mengakses domain redzone.xxxx.com melalui alamat IP Severny (Notes : menggunakan pointer record)
 
+### Server Pochinki
 - Edit file /etc/bind/named.conf.local pada node Pochinki
 ```
 nano /etc/bind/named.conf.local
@@ -215,7 +235,11 @@ host -t PTR 10.64.4.2
 # Soal 7
 Akhir-akhir ini seringkali terjadi serangan siber ke DNS Server Utama, sebagai tindakan antisipasi kamu diperintahkan untuk membuat DNS Slave di Georgopol untuk semua domain yang sudah dibuat sebelumnya
 
+### Server Pochinki
 - Lakukan konfigurasi pada file /etc/bind/named.conf.local sebagai berikut untuk melakukan konfigurasi DNS Slave yang mengarah ke Georgopol:
+```
+nano /etc/bind/named.conf.local
+```
 ```
 zone "airdrop.it01.com" {
     type master;
@@ -249,6 +273,7 @@ zone "4.64.10.in-addr.arpa" {
 service bind9 restart
 ```
 
+### Server Georgopol
 - Pada node Georgopol, lakukan `apt-get update` dan menginstall bind9 dengan `apt-get install bind9 -y`
 - Lakukan konfigurasi pada file `/etc/bind/named.conf.local`
 ```
@@ -282,6 +307,7 @@ zone "loot.it01.com" {
 # Soal 8
 Kamu juga diperintahkan untuk membuat subdomain khusus melacak airdrop berisi peralatan medis dengan subdomain medkit.airdrop.xxxx.com yang mengarah ke Lipovka
 
+### Server Pochinki
 - Edit file `/etc/bind/airdrop/airdrop.it01.com` seperti pada gambar dibawah ini
 ```
 nano /etc/bind/airdrop/airdrop.it01.com
@@ -297,6 +323,7 @@ nano /etc/bind/airdrop/airdrop.it01.com
 # Soal 9
 Terkadang red zone yang pada umumnya di bombardir artileri akan dijatuhi bom oleh pesawat tempur. Untuk melindungi warga, kita diperlukan untuk membuat sistem peringatan air raid dan memasukkannya ke domain siren.redzone.xxxx.com dalam folder siren dan pastikan dapat diakses secara mudah dengan menambahkan alias www.siren.redzone.xxxx.com dan mendelegasikan subdomain tersebut ke Georgopol dengan alamat IP menuju radar di Severny
 
+### Server Pochinki
 - Pada Pochinki, buat folder baru siren
 ```
 mkdir /etc/bind/siren
@@ -316,17 +343,28 @@ nano /etc/bind/siren/siren.redzone.it01.com
 
 - Edit file `/etc/bind/named.conf.options` dan tambahkan line berikut
 ```
+nano /etc/bind/named.conf.options
+```
+```
 allow-query{any;};
 ```
 ![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/50014127-f0a2-4731-8b3d-d9fa3e1e81ed)
 
 - Restart bind9 `service bind9 restart`
+### Server Georgopol
 - Pada Georgopol, edit file `/etc/bind/named.conf.options`, kemudian tambahkan line ini
+```
+nano /etc/bind/named.conf.options
+```
 ```
 allow-query{any;};
 ```
 ![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/3c8f7676-1ee1-43a8-84e2-cb7044ae237d)
+
 - Edit file `/etc/bind/named.conf.local` kemudian tambahkan konfigurasi dibawah ini
+```
+nano /etc/bind/named.conf.local
+```
 ```
 zone "siren.redzone.it01.com" {
     type master;
@@ -343,6 +381,9 @@ mkdir /etc/bind/siren
 cp /etc/bind/db.local /etc/bind/siren/siren.redzone.it01.com
 ```
 - Edit file `/etc/bind/siren/siren.redzone.it01.com`
+```
+nano /etc/bind/siren/siren.redzone.it01.com
+```
 ```
 ;
 ; BIND data file for local loopback interface
@@ -375,6 +416,7 @@ www     IN      CNAME   siren.redzone.it01.com.
 # Soal 10
 Markas juga meminta catatan kapan saja pesawat tempur tersebut menjatuhkan bom, maka buatlah subdomain baru di subdomain siren yaitu log.siren.redzone.xxxx.com serta aliasnya www.log.siren.redzone.xxxx.com yang juga mengarah ke Severny
 
+### Server Georgopol
 - Pada Server Georgopol buka /etc/bind/siren/siren.redzone.it01.com, kemudian edit konfigurasi seperti gambar dibawah
 ```
 nano /etc/bind/siren/siren.redzone.it01.com
