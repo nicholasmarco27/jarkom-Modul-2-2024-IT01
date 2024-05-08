@@ -5,6 +5,11 @@
 | 5027221042 |Nicholas Marco Weinandra |
 | 5027221052 | Mochamad Zidan Hadipratama |
 
+# Topologi
+- Topologi 1
+![image](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/698ac3ca-da22-4c77-aaba-7ed7141d9aa3)
+
+
 # Soal 1
 Untuk membantu pertempuran di Erangel, kamu ditugaskan untuk membuat jaringan komputer yang akan digunakan sebagai alat komunikasi. Sesuaikan rancangan Topologi dengan rancangan dan pembagian yang berada di link yang telah disediakan, dengan ketentuan nodenya sebagai berikut :
 - DNS Master akan diberi nama Pochinki, sesuai dengan kota tempat dibuatnya server tersebut
@@ -150,7 +155,10 @@ Pastikan domain-domain tersebut dapat diakses oleh seluruh komputer (client) yan
 - Untuk testing, kita dapat melakukan ping pada domain yang telah dibuat. Contoh ping:
 ```
 ping airdrop.it01.com -c 5
+ping www.airdrop.it01.com -c 5
 ping redzone.it01.com -c 5
+ping www.redzone.it01.com -c 5
+ping loot.it01.com -c 5
 ping www.loot.it01.com -c 5
 ```
 
@@ -161,24 +169,9 @@ ping www.loot.it01.com -c 5
 - Shelter
 ![Screenshot 2024-05-03 204838](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/bfd9115f-9409-44ea-a584-0aee7c6a1f58)
 
-
-- Georgopol
-![Screenshot 2024-05-03 204814](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/bd16f729-66f2-42b7-b75b-daeee5cce565)
-
 - Gatka
 ![Screenshot 2024-05-03 204631](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/a4c913bb-56fd-4e7c-9bf8-5cc0cc4cfe29)
 
-- Severny
-![Screenshot 2024-05-03 203817](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/de034e52-959f-479e-83b7-862b8350607f)
-
-- Stalber
-![Screenshot 2024-05-03 204616](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/cfa3686a-0f25-4ef0-9fb6-86bdb7a2e67d)
-
-- Lipovka</br>
-![Screenshot 2024-05-03 204956](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/758c4b37-063c-4eca-8d15-989d96e23b71)
-
-- Mylta</br>
-![Screenshot 2024-05-03 205122](https://github.com/nicholasmarco27/jarkom-Modul-2-2024-IT01/assets/80316798/290f436b-6640-4c28-8979-0e2d27f937c4)
 
 # Soal 6
 Beberapa daerah memiliki keterbatasan yang menyebabkan hanya dapat mengakses domain secara langsung melalui alamat IP domain tersebut. Karena daerah tersebut tidak diketahui secara spesifik, pastikan semua komputer (client) dapat mengakses domain redzone.xxxx.com melalui alamat IP Severny (Notes : menggunakan pointer record)
